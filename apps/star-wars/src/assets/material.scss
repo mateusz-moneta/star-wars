@@ -1,0 +1,20 @@
+@import '~material-icons/iconfont/material-icons.css';
+@import '~@angular/material/theming';
+@include mat-core();
+
+$star-wars-primary: mat-palette($mat-indigo);
+$star-wars-accent:  mat-palette($mat-pink, 500, 900, A100);
+$star-wars-warn:    mat-palette($mat-deep-orange);
+
+$star-wars-theme: mat-light-theme($star-wars-primary, $star-wars-accent, $star-wars-warn);
+
+@include mat-button-theme($star-wars-theme);
+@include mat-card-theme($star-wars-theme);
+@include mat-divider-theme($star-wars-theme);
+@include mat-form-field-theme($star-wars-theme);
+@include mat-icon-theme($star-wars-theme);
+@include mat-input-theme($star-wars-theme);
+@include mat-list-theme($star-wars-theme);
+@include mat-sidenav-theme($star-wars-theme);
+@include mat-toolbar-theme($star-wars-theme);
+@include mat-select-theme($star-wars-theme);

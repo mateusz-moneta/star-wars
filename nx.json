@@ -25,6 +25,12 @@
     "star-wars-e2e": {
       "tags": [],
       "implicitDependencies": ["star-wars"]
+    },
+    "star-wars-home-screen": {
+      "tags": ["type:feature"]
+    },
+    "star-wars-shared": {
+      "tags": ["type:shared"]
     }
   }
 }

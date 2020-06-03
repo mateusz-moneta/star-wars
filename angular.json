@@ -25,8 +25,14 @@
               "apps/star-wars/src/favicon.ico",
               "apps/star-wars/src/assets"
             ],
-            "styles": ["apps/star-wars/src/styles.scss"],
-            "scripts": []
+            "styles": [
+              "apps/star-wars/src/styles.scss",
+              "./node_modules/bootstrap/dist/css/bootstrap.css"
+            ],
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -120,6 +126,64 @@
           "options": {
             "tsConfig": ["apps/star-wars-e2e/tsconfig.e2e.json"],
             "exclude": ["**/node_modules/**", "!apps/star-wars-e2e/**"]
+          }
+        }
+      }
+    },
+    "star-wars-home-screen": {
+      "projectType": "library",
+      "root": "libs/star-wars/home-screen",
+      "sourceRoot": "libs/star-wars/home-screen/src",
+      "prefix": "sw",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/star-wars/home-screen/tsconfig.lib.json",
+              "libs/star-wars/home-screen/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/star-wars/home-screen/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/star-wars/home-screen/jest.config.js",
+            "tsConfig": "libs/star-wars/home-screen/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/star-wars/home-screen/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "star-wars-shared": {
+      "root": "libs/star-wars/shared",
+      "sourceRoot": "libs/star-wars/shared/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/star-wars/shared/tsconfig.lib.json",
+              "libs/star-wars/shared/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/star-wars/shared/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/star-wars/shared/jest.config.js",
+            "tsConfig": "libs/star-wars/shared/tsconfig.spec.json",
+            "passWithNoTests": true
           }
         }
       }

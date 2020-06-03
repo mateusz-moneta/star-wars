@@ -56,12 +56,23 @@
     "nx-enforce-module-boundaries": [
       true,
       {
-        "enforceBuildableLibDependency": true,
         "allow": [],
         "depConstraints": [
           {
-            "sourceTag": "*",
-            "onlyDependOnLibsWithTags": ["*"]
+            "sourceTag": "service:star-wars",
+            "onlyDependOnLibsWithTags": ["service:star-wars"]
+          },
+          {
+            "sourceTag": "type:feature",
+            "onlyDependOnLibsWithTags": ["type:shared", "type:data-access", "type:util"]
+          },
+          {
+            "sourceTag": "type:util",
+            "onlyDependOnLibsWithTags": ["type:util"]
+          },
+          {
+            "sourceTag": "type:shared",
+            "onlyDependOnLibsWithTags": ["type:shared"]
           }
         ]
       }

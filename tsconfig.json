@@ -15,7 +15,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@sw/star-wars/home-screen": ["libs/star-wars/home-screen/src/index.ts"],
+      "@sw/star-wars/shared": ["libs/star-wars/shared/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

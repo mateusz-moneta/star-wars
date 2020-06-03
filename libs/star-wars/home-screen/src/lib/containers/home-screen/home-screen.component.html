@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <mat-form-field appearance="outline">
+        <mat-label>Game mode</mat-label>
+        <mat-select [formControl]="gameMode">
+          <mat-option *ngFor="let gameMode of gameModeOptions" [value]="gameMode">{{ gameMode }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-4">
+      <mat-form-field appearance="outline">
+        <mat-label>Category</mat-label>
+        <mat-select [formControl]="category">
+          <mat-option
+            *ngFor="let endpointForCategory of (endpointsForCategories$ | async | keyvalue)"
+            [value]="endpointForCategory.value"
+          >
+            {{ endpointForCategory.key }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <mat-form-field appearance="outline">
+        <mat-label>Game mode</mat-label>
+        <mat-select [formControl]="gameMode">
+          <mat-option *ngFor="let gameMode of gameModeOptions" [value]="gameMode">{{ gameMode }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-6">
+
+    </div>
+  </div>
+</div>
