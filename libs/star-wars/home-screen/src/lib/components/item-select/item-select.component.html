@@ -1,0 +1,19 @@
+<mat-form-field appearance="outline">
+  <mat-label>{{ category | titlecase }}</mat-label>
+  <mat-select [formControl]="control">
+    <mat-option
+      *ngFor="let item of (items$ | async)?.results; let i = index"
+      [value]="i + 1"
+    >
+      {{ item.name }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<button (click)="previousPage()" [disabled]="pageIndex < 2" type="button" mat-icon-button>
+  <mat-icon>keyboard_arrow_left</mat-icon>
+</button>
+
+<button (click)="nextPage()" [disabled]="!(items$ | async)?.next" type="button" mat-icon-button>
+  <mat-icon>keyboard_arrow_right</mat-icon>
+</button>

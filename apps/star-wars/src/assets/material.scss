@@ -14,7 +14,6 @@ $star-wars-theme: mat-light-theme($star-wars-primary, $star-wars-accent, $star-w
 @include mat-form-field-theme($star-wars-theme);
 @include mat-icon-theme($star-wars-theme);
 @include mat-input-theme($star-wars-theme);
-@include mat-list-theme($star-wars-theme);
 @include mat-sidenav-theme($star-wars-theme);
 @include mat-toolbar-theme($star-wars-theme);
 @include mat-select-theme($star-wars-theme);

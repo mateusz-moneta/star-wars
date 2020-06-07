@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
+import { Category } from '../../enums/category.enum';
 import { GameMode } from '../../enums/game-mode.enum';
-import { StarWarsApiService } from '../../services/star-wars-api.service';
-import { EndpointForCategory } from '../../interfaces/endpoint-for-category.interface';
-import { share, subscribeOn, takeUntil } from 'rxjs/operators';
-import { Observable, Subject } from 'rxjs';
-import { ItemsForCategory } from '../../interfaces/items-for-category.interface';
+import { Side } from '../../enums/side.enum';
+import { SelectedItem } from '../../interfaces/selected-item.interface';
 
 @Component({
   selector: 'sw-home-screen',
@@ -14,19 +14,22 @@ import { ItemsForCategory } from '../../interfaces/items-for-category.interface'
   styleUrls: ['./home-screen.component.scss']
 })
 export class HomeScreenComponent implements OnInit, OnDestroy {
-  category = new FormControl(null);
-  gameMode = new FormControl(GameMode.SINGLE_PLAYER);
+  categories = Object.values(Category);
   gameModeOptions = Object.values(GameMode);
-  endpointsForCategories$: Observable<EndpointForCategory[]>;
-  itemsForCategory$: Observable<ItemsForCategory>;
+  homeScreenForm = new FormGroup({
+    category: new FormControl(Category.PEOPLE),
+    gameMode: new FormControl(GameMode.SINGLE_PLAYER)
+  });
+  selectedCategory = Category.PEOPLE;
+  data = new Map();
 
   private unsubscribe$ = new Subject<void>();
+  readonly side = Side;
 
-  constructor(private starWarsApiService: StarWarsApiService) { }
+  constructor() {}
 
   ngOnInit(): void {
-    this.endpointsForCategories$ = this.starWarsApiService.loadEndpointsForCategories();
-    this._handleChangesOfCategory();
+    this.handleChangeCategory();
   }
 
   ngOnDestroy(): void {
@@ -34,11 +37,13 @@ export class HomeScreenComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
-  private _handleChangesOfCategory(): void {
-    this.category.valueChanges
+  onSelectItem(selectedItem: SelectedItem): void {
+    this.data.set(selectedItem.side, selectedItem.item);
+  }
+
+  private handleChangeCategory(): void {
+    this.homeScreenForm.controls.category.valueChanges
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((endpoint: string) => {
-        this.itemsForCategory$ = this.starWarsApiService.loadCategory(endpoint).pipe(share());
-      });
+      .subscribe((category: Category) => (this.selectedCategory = category));
   }
 }
