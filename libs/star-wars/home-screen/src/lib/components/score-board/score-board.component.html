@@ -1,4 +1,4 @@
-<ng-container *ngIf="selectedGameMode === gameMode.SINGLE_PLAYER; else scoreBoard">
+<ng-container *ngIf="gameMode === gameModeOption.SINGLE_PLAYER; else scoreBoard">
   <p><strong>Winner:</strong> {{ winner }}</p>
 </ng-container>
 

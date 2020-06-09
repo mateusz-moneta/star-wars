@@ -31,12 +31,10 @@ export class ItemSelectComponent implements OnInit, OnDestroy {
   }
 
   @Input()
-  set gameMode(gameMode: GameMode) {
-    this.control.setValue(null);
-  };
+  items: People[] | Vehicle[] = [];
 
   @Input()
-  items: People[] | Vehicle[] = [];
+  disabled = false;
 
   @Input()
   side: Side;

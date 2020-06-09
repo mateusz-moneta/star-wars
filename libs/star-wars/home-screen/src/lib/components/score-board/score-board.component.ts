@@ -14,11 +14,11 @@ export class ScoreBoardComponent {
   score: Map<Side, number>;
 
   @Input()
-  selectedGameMode: GameMode;
+  gameMode: GameMode;
 
   @Input()
   winner: string;
 
-  readonly gameMode = GameMode;
+  readonly gameModeOption = GameMode;
   readonly side = Side;
 }

@@ -1,20 +1,24 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { Category } from '../../enums/category.enum';
 import { GameMode } from '../../enums/game-mode.enum';
+import { ItemSelectComponent } from '../../components/item-select/item-select.component';
 import { SelectedItem } from '../../interfaces/selected-item.interface';
 import { Side } from '../../enums/side.enum';
 import { People } from '../../interfaces/people.interface';
 import { Vehicle } from '../../interfaces/vehicle.interface';
 
-@Component({
-  selector: 'sw-home-screen',
-  templateUrl: './home-screen.component.html'
-})
-export class HomeScreenComponent implements OnInit, OnDestroy {
+  @Component({
+    selector: 'sw-home-screen',
+    templateUrl: './home-screen.component.html',
+    styleUrls: ['./home-screen.component.scss']
+  })
+  export class HomeScreenComponent implements OnInit, OnDestroy {
+  @ViewChildren('itemSelect') itemSelectReferences: QueryList<ItemSelectComponent>;
+
   categories = Object.values(Category);
   data = new Map<Side, People | Vehicle>();
   gameModeOptions = Object.values(GameMode);
@@ -22,6 +26,7 @@ export class HomeScreenComponent implements OnInit, OnDestroy {
     category: new FormControl(Category.PEOPLE),
     gameMode: new FormControl(GameMode.SINGLE_PLAYER)
   });
+  isDisabled = false;
   score = new Map<Side, number>();
   selectedCategory = Category.PEOPLE;
   selectedGameMode = GameMode.SINGLE_PLAYER;
@@ -48,7 +53,15 @@ export class HomeScreenComponent implements OnInit, OnDestroy {
     }
   }
 
+  reset(): void {
+    this.data.clear();
+    this.isDisabled = false;
+    this.resetItemSelectControls();
+  }
+
   private setWinner(): void {
+    this.isDisabled = true;
+
     switch (this.selectedCategory) {
       case Category.PEOPLE:
         this.winner = parseInt((this.data.get(Side.LEFT) as People).mass, 10)
@@ -82,6 +95,7 @@ export class HomeScreenComponent implements OnInit, OnDestroy {
         this.data.clear();
         this.selectedGameMode = gameMode;
         this.winner = null;
+        this.resetItemSelectControls();
 
         if (this.selectedGameMode === GameMode.MULTI_PLAYER) {
           Object.values(Side).forEach((side: Side) => {
@@ -89,5 +103,11 @@ export class HomeScreenComponent implements OnInit, OnDestroy {
           });
         }
       });
+  }
+
+  private resetItemSelectControls(): void {
+    this.itemSelectReferences.forEach((itemSelect: ItemSelectComponent) => {
+      itemSelect.control.setValue(null);
+    });
   }
 }

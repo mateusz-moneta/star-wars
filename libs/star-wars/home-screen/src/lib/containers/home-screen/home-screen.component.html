@@ -35,25 +35,29 @@
     <div class="row">
       <div class="col-md-5">
         <sw-item-select
+          #itemSelect
           (selectItem)="onSelectItem($event)"
           [category]="selectedCategory"
-          [gameMode]="selectedGameMode"
+          [disabled]="isDisabled"
           [side]="side.LEFT"
         ></sw-item-select>
       </div>
+
       <div class="col-md-5">
         <sw-item-select
+          #itemSelect
           (selectItem)="onSelectItem($event)"
           [category]="selectedCategory"
-          [gameMode]="selectedGameMode"
+          [disabled]="isDisabled"
           [side]="side.RIGHT"
         ></sw-item-select>
       </div>
+
       <div class="col-md-2">
         <sw-score-board
           [winner]="data.get(winner)?.name"
           [score]="score"
-          [selectedGameMode]="selectedGameMode"
+          [gameMode]="selectedGameMode"
         >
         </sw-score-board>
       </div>
@@ -66,12 +70,26 @@
           [item]="data.get(side.LEFT)"
         ></sw-card-details>
       </div>
+
       <div class="col-md-5">
         <sw-card-details
           [category]="selectedCategory"
           [item]="data.get(side.RIGHT)"
         ></sw-card-details>
       </div>
+    </div>
+
+    <div class="actions-row">
+      <button
+        (click)="reset()"
+        [disabled]="!isDisabled"
+        class="reset-button"
+        color="primary"
+        type="button"
+        mat-flat-button
+      >
+        Play again!
+      </button>
     </div>
   </div>
 </mat-drawer-container>
