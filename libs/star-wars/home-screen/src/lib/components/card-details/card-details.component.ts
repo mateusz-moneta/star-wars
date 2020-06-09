@@ -1,21 +1,20 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { Vehicle } from '../../interfaces/vehicle.interface';
+import { Category } from '../../enums/category.enum';
 import { People } from '../../interfaces/people.interface';
+import { Vehicle } from '../../interfaces/vehicle.interface';
 
 @Component({
   selector: 'sw-card-details',
   templateUrl: './card-details.component.html',
-  styleUrls: ['./card-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CardDetailsComponent implements OnInit {
+export class CardDetailsComponent {
+  @Input()
+  category: Category;
+
   @Input()
   item: People | Vehicle;
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  readonly categoryOption = Category;
 }

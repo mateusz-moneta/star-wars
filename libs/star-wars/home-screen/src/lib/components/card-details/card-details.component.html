@@ -1,14 +1,22 @@
-<mat-card *ngIf="item" class="example-card">
+<mat-card *ngIf="item">
   <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
     <mat-card-title>{{ item.name }}</mat-card-title>
   </mat-card-header>
 
-  <mat-card-content>
-    <p><strong>Height: </strong> {{ item.height }}</p>
-    <p><strong>Mass: </strong> {{ item.mass }}</p>
-    <p><strong>Hair color: </strong> {{ item.hair_color }}</p>
-    <p><strong>Eye color: </strong> {{ item.eye_color }}</p>
-    <p><strong>Birth year: </strong> {{ item.birth_year }}</p>
-  </mat-card-content>
+  <ng-container [ngSwitch]="category">
+    <mat-card-content *ngSwitchCase="categoryOption.PEOPLE">
+      <p><strong>Height:</strong> {{ item.height }}</p>
+      <p><strong>Mass:</strong> {{ item.mass }}</p>
+      <p><strong>Hair color:</strong> {{ item.hair_color }}</p>
+      <p><strong>Eye color:</strong> {{ item.eye_color }}</p>
+      <p><strong>Birth year:</strong> {{ item.birth_year }}</p>
+    </mat-card-content>
+
+    <mat-card-content *ngSwitchCase="categoryOption.VEHICLES">
+      <p><strong>Model:</strong> {{ item.model }}</p>
+      <p><strong>Crew:</strong> {{ item.crew }}</p>
+      <p><strong>Passengers:</strong> {{ item.passengers }}</p>
+      <p><strong>Cost in credits:</strong> {{ item.cost_in_credits }}</p>
+    </mat-card-content>
+  </ng-container>
 </mat-card>

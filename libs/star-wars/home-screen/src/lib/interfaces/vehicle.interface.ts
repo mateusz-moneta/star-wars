@@ -1,5 +1,6 @@
-export interface Vehicle {
-  name: string;
+import { BaseItem } from './base-item.interface';
+
+export interface Vehicle extends BaseItem {
   model: string;
   vehicle_class: string;
   manufacturer: string;
@@ -12,7 +13,4 @@ export interface Vehicle {
   consumables: string;
   films: string[];
   pilots: string[];
-  url: string;
-  created: string;
-  edited: string;
 }

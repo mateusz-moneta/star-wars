@@ -33,25 +33,42 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-5">
         <sw-item-select
           (selectItem)="onSelectItem($event)"
-          [category]="this.selectedCategory"
+          [category]="selectedCategory"
+          [gameMode]="selectedGameMode"
           [side]="side.LEFT"
         ></sw-item-select>
+      </div>
+      <div class="col-md-5">
+        <sw-item-select
+          (selectItem)="onSelectItem($event)"
+          [category]="selectedCategory"
+          [gameMode]="selectedGameMode"
+          [side]="side.RIGHT"
+        ></sw-item-select>
+      </div>
+      <div class="col-md-2">
+        <sw-score-board
+          [winner]="data.get(winner)?.name"
+          [score]="score"
+          [selectedGameMode]="selectedGameMode"
+        >
+        </sw-score-board>
+      </div>
+    </div>
 
+    <div class="row">
+      <div class="col-md-5">
         <sw-card-details
+          [category]="selectedCategory"
           [item]="data.get(side.LEFT)"
         ></sw-card-details>
       </div>
-      <div class="col-md-6">
-        <sw-item-select
-          (selectItem)="onSelectItem($event)"
-          [category]="this.selectedCategory"
-          [side]="side.RIGHT"
-        ></sw-item-select>
-
+      <div class="col-md-5">
         <sw-card-details
+          [category]="selectedCategory"
           [item]="data.get(side.RIGHT)"
         ></sw-card-details>
       </div>

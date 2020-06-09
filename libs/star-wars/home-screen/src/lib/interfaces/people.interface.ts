@@ -1,5 +1,6 @@
-export interface People {
-  name: string;
+import { BaseItem } from './base-item.interface';
+
+export interface People extends BaseItem {
   height: string;
   mass: string;
   hair_color: string;
@@ -12,7 +13,4 @@ export interface People {
   species: string[];
   vehicles: string[];
   starships: string[];
-  created: string;
-  edited: string;
-  url: string;
 }

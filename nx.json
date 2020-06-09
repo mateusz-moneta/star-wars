@@ -27,10 +27,10 @@
       "implicitDependencies": ["star-wars"]
     },
     "star-wars-home-screen": {
-      "tags": ["type:feature"]
+      "tags": ["scope:star-wars", "type:feature"]
     },
     "star-wars-shared": {
-      "tags": ["type:shared"]
+      "tags": ["scope:star-wars", "type:shared"]
     }
   }
 }

@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
-import { filter, switchMap, takeUntil } from 'rxjs/operators';
+import { filter, share, switchMap, takeUntil } from 'rxjs/operators';
 
 import { Category } from '../../enums/category.enum';
+import { GameMode } from '../../enums/game-mode.enum';
 import { ItemsForCategory } from '../../interfaces/items-for-category.interface';
 import { People } from '../../interfaces/people.interface';
 import { SelectedItem } from '../../interfaces/selected-item.interface';
@@ -18,7 +19,21 @@ import { Vehicle } from '../../interfaces/vehicle.interface';
 })
 export class ItemSelectComponent implements OnInit, OnDestroy {
   @Input()
-  category: Category;
+  set category(category: Category) {
+    this._category = category;
+    this.pageIndex = 1;
+    this.loadItems(this.pageIndex);
+    this.control.setValue(null);
+  }
+
+  get category(): Category {
+    return this._category;
+  }
+
+  @Input()
+  set gameMode(gameMode: GameMode) {
+    this.control.setValue(null);
+  };
 
   @Input()
   items: People[] | Vehicle[] = [];
@@ -33,6 +48,7 @@ export class ItemSelectComponent implements OnInit, OnDestroy {
   items$: Observable<ItemsForCategory>;
   pageIndex = 1;
 
+  private _category: Category;
   private unsubscribe$ = new Subject<void>();
 
   constructor(private starWarsApiService: StarWarsApiService) {}
@@ -70,6 +86,6 @@ export class ItemSelectComponent implements OnInit, OnDestroy {
   }
 
   private loadItems(page: number): void {
-    this.items$ = this.starWarsApiService.loadItemsForCategory(this.category, page);
+    this.items$ = this.starWarsApiService.loadItemsForCategory(this.category, page).pipe(share());
   }
 }

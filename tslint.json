@@ -59,8 +59,8 @@
         "allow": [],
         "depConstraints": [
           {
-            "sourceTag": "service:star-wars",
-            "onlyDependOnLibsWithTags": ["service:star-wars"]
+            "sourceTag": "scope:star-wars",
+            "onlyDependOnLibsWithTags": ["scope:star-wars"]
           },
           {
             "sourceTag": "type:feature",

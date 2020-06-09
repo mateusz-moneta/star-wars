@@ -1,0 +1,13 @@
+<ng-container *ngIf="selectedGameMode === gameMode.SINGLE_PLAYER; else scoreBoard">
+  <p><strong>Winner:</strong> {{ winner }}</p>
+</ng-container>
+
+<ng-template #scoreBoard>
+  <div class="score-column">
+    <p><strong>Left</strong><br />{{ score.get(side.LEFT) }}</p>
+  </div>
+
+  <div class="score-column">
+    <p><strong>Right</strong><br />{{ score.get(side.RIGHT) }}</p>
+  </div>
+</ng-template>

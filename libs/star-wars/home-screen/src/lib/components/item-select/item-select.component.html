@@ -3,14 +3,14 @@
   <mat-select [formControl]="control">
     <mat-option
       *ngFor="let item of (items$ | async)?.results; let i = index"
-      [value]="i + 1"
+      [value]="i | index: pageIndex"
     >
       {{ item.name }}
     </mat-option>
   </mat-select>
 </mat-form-field>
 
-<button (click)="previousPage()" [disabled]="pageIndex < 2" type="button" mat-icon-button>
+<button (click)="previousPage()" [disabled]="!(items$ | async)?.previous" type="button" mat-icon-button>
   <mat-icon>keyboard_arrow_left</mat-icon>
 </button>
 
