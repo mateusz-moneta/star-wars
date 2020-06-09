@@ -45,10 +45,6 @@ export class HomeScreenComponent implements OnInit, OnDestroy {
 
     if (this.data.size === Object.keys(Side).length) {
       this.setWinner();
-
-      if (this.selectedGameMode === GameMode.MULTI_PLAYER) {
-        this.data.clear();
-      }
     }
   }
 
